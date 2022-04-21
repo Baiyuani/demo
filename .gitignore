@@ -1,0 +1,10 @@
+
+/.idea/
+/.backup/
+
+kubeadm
+*.docx
+*.crt
+*.csr
+*.key
+*.srl
