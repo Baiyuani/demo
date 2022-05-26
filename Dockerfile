@@ -2,7 +2,7 @@ FROM centos
 
 RUN rm -f /etc/yum.repos.d/CentOS-Linux-* || true
 ADD Centos-vault-8.5.2111.repo /etc/yum.repos.d/aliyun.repo
-RUN yum makecache fast || true
+RUN yum makecache || true
 RUN yum -y install nginx bind-utils
 
 RUN rm -f /etc/nginx/nginx.conf  # configmap使用测试,使用cm挂载该文件
