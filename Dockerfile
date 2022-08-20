@@ -8,10 +8,10 @@ ADD kubernetes.repo /etc/yum.repos.d/kubernetes.repo
 RUN yum makecache
 
 WORKDIR /
-ADD nginx-1.22.0.tar.gz /nginx-1.22.0.tar.gz
+ADD nginx-1.22.0.tar.gz /
 RUN yum -y install gcc pcre-devel openssl-devel bind-utils
 RUN useradd nginx
-RUN tar -xf /nginx-1.22.0.tar.gz
+RUN tar -xf nginx-1.22.0.tar.gz
 RUN /nginx-1.22.0/configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module
 RUN cd /nginx-1.22.0 && make && make install
 
