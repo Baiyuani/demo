@@ -4,4 +4,4 @@
 name = MariaDB
 baseurl = https://mirrors.aliyun.com/mariadb/yum/10.5/centos7-amd64
 gpgkey=https://mirrors.aliyun.com/mariadb/yum/RPM-GPG-KEY-MariaDB
-gpgcheck=0
+gpgcheck=1

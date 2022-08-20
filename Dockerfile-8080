@@ -1,7 +1,0 @@
-FROM centos
-
-RUN yum -y install nginx
-ADD web/index.html /usr/share/nginx/html/
-ADD conf/nginx.conf /etc/nginx/
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]

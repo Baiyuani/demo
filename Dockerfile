@@ -1,9 +1,8 @@
 FROM centos:7
 
-RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' \
-        -e 's|^#baseurl=http://mirror.centos.org|baseurl=https://mirrors.tuna.tsinghua.edu.cn|g' \
-        -i.bak \
-        /etc/yum.repos.d/CentOS-*.repo
+RUN mkdir /etc/yum.repos.d/bak
+RUN mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/bak || true
+ADD aliyun.repo /etc/yum.repos.d/aliyun.repo
 ADD mariadb.repo /etc/yum.repos.d/mariadb.repo
 ADD kubernetes.repo /etc/yum.repos.d/kubernetes.repo
 
