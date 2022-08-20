@@ -11,8 +11,10 @@ RUN yum -y install gcc pcre-devel openssl-devel bind-utils
 
 RUN useradd nginx
 ADD ./nginx-1.22.0.tar.gz /
-RUN /nginx-1.22.0/configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module
-RUN cd /nginx-1.22.0 && make && make install
+
+WORKDIR /nginx-1.22.0
+RUN ./configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module
+RUN make && make install
 
 #RUN rm -f /usr/local/nginx/conf/nginx.conf  # configmap使用测试,使用cm挂载该文件
 RUN ln -s /dev/stdout /usr/local/nginx/logs/access.log  # 将应用日志打印到容器输出
