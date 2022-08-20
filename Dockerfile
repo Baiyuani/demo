@@ -6,14 +6,14 @@ ADD aliyun.repo /etc/yum.repos.d/aliyun.repo
 ADD mariadb.repo /etc/yum.repos.d/mariadb.repo
 ADD kubernetes.repo /etc/yum.repos.d/kubernetes.repo
 RUN yum makecache
-
-WORKDIR /tmp
-ADD nginx-1.22.0.tar.gz /tmp
 RUN yum -y install gcc pcre-devel openssl-devel bind-utils
+
+
 RUN useradd nginx
-RUN tar -xf ./nginx-1.22.0.tar.gz
-RUN ./nginx-1.22.0/configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module
-RUN cd ./nginx-1.22.0 && make && make install
+ADD ./nginx-1.22.0.tar.gz /
+RUN tar -xf /nginx-1.22.0.tar.gz
+RUN /nginx-1.22.0/configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module
+RUN cd /nginx-1.22.0 && make && make install
 
 #RUN rm -f /usr/local/nginx/conf/nginx.conf  # configmap使用测试,使用cm挂载该文件
 RUN ln -s /dev/stdout /usr/local/nginx/logs/access.log  # 将应用日志打印到容器输出
