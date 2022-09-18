@@ -6,7 +6,8 @@ ADD aliyun.repo /etc/yum.repos.d/aliyun.repo
 ADD mariadb.repo /etc/yum.repos.d/mariadb.repo
 ADD kubernetes.repo /etc/yum.repos.d/kubernetes.repo
 RUN yum makecache
-RUN yum -y install gcc pcre-devel openssl-devel bind-utils make vim-enhanced iproute bash-completion
+RUN yum -y update
+RUN yum -y install gcc pcre-devel openssl-devel bind-utils make vim-enhanced iproute bash-completion nmap tcpdump telnet
 
 ADD ./nginx-1.22.0.tar.gz /
 
