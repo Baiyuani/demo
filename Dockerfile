@@ -20,9 +20,8 @@ RUN ln -s /dev/stdout /usr/local/nginx/logs/access.log  # 将应用日志打印�
 RUN ln -s /dev/stderr /usr/local/nginx/logs/error.log
 
 WORKDIR /usr/local/nginx/html/
-RUN mkdir web
-ADD ./src/* web/
-ADD ./src/index.html ./
+#RUN mkdir web
+ADD ./src/* .
 
 EXPOSE 80
 #ENTRYPOINT ["nginx"]    #为了在workload配置启动命令，不使用ENTRYPOINT
