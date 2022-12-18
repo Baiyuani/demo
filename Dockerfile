@@ -5,7 +5,7 @@ RUN apt update -y && apt -y install ca-certificates gcc libpcre3-dev zlib1g-dev 
 
 ADD ./nginx-1.22.0.tar.gz /
 WORKDIR /nginx-1.22.0
-RUN ./configure --prefix=/usr/local/nginx --user=nobody
+RUN ./configure --prefix=/usr/local/nginx --user=nobody --group=nobody
 # RUN ./configure --prefix=/usr/local/nginx --user=nobody --group=nobody --with-http_ssl_module --with-http_stub_status_module
 RUN make && make install
 
@@ -29,6 +29,7 @@ ADD sources.list /etc/apt/
 #RUN curl -o /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc 'https://mariadb.org/mariadb_release_signing_key.asc' && sh -c "echo '\ndeb [arch=amd64] https://mirrors.aliyun.com/mariadb/repo/10.5/ubuntu focal main' >>/etc/apt/sources.list"
 RUN apt -y update
 
+RUN useradd -s /usr/sbin/nologin -d /nonexistent nobody
 EXPOSE 80
 #ENTRYPOINT ["nginx"]    #为了在workload配置启动命令，不使用ENTRYPOINT
 #CMD ["-g", "daemon off;"]
