@@ -1,9 +1,11 @@
 FROM ubuntu:20.04
 
 ADD sources.list /etc/apt/
-RUN curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
 RUN apt update -y && apt -y upgrade && sleep 1
-RUN apt -y install gcc pcre-devel openssl-devel bind-utils make vim-enhanced iproute bash-completion nmap tcpdump telnet apt-transport-https ca-certificates curl software-properties-common
+RUN apt -y install gcc pcre-devel openssl-devel bind-utils make vim-enhanced iproute bash-completion nmap tcpdump telnet curl
+
+RUN curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
+RUN apt -y install apt-transport-https ca-certificates software-properties-common
 RUN curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add - && add-apt-repository -y "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable" && apt -y update
 
 ADD ./nginx-1.22.0.tar.gz /
