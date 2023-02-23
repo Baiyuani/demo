@@ -24,14 +24,15 @@ ADD src .
 
 RUN apt update -y && apt -y install ca-certificates && update-ca-certificates && \
     apt -y update && apt-get -y upgrade && \
-    apt-get -y -f install curl gnupg tcpdump  ca-certificates iputils-ping bind9-utils dnsutils && \
+    apt-get -y -f install iproute2 curl bash-completion gnupg tcpdump telnet ca-certificates iputils-ping bind9-utils dnsutils netcat && \
     curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && \
     echo 'deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main' >> /etc/apt/sources.list.d/kubernetes.list && \
     apt -y update && \
     apt install kubectl=1.23.15-00
 
 ADD sources.list /etc/apt/
-#iproute2 bash-completion netcat-traditional telnet
+RUN apt -y update
+
 EXPOSE 80
 #ENTRYPOINT ["nginx"]    #为了在workload配置启动命令，不使用ENTRYPOINT
 #CMD ["-g", "daemon off;"]
