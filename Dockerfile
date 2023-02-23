@@ -21,14 +21,17 @@ COPY --from=build-source /usr/local/nginx /usr/local/nginx
 WORKDIR /usr/local/nginx/html/
 ADD src .
 
-RUN apt -y update && apt -y install curl vim iproute2 bash-completion netcat-traditional tcpdump telnet ca-certificates iputils-ping bind9-utils
-ADD sources.list /etc/apt/
-#RUN apt -y install apt-transport-https software-properties-common
-#RUN curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
-#RUN curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add - && add-apt-repository -y "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu focal stable"
-#RUN curl -o /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc 'https://mariadb.org/mariadb_release_signing_key.asc' && sh -c "echo '\ndeb [arch=amd64] https://mirrors.aliyun.com/mariadb/repo/10.5/ubuntu focal main' >>/etc/apt/sources.list"
-RUN apt -y update
 
+RUN apt update -y && apt -y install ca-certificates && update-ca-certificates && \
+    apt -y update && apt-get -y upgrade && \
+    apt-get -y -f install curl gnupg tcpdump  ca-certificates iputils-ping bind9-utils dnsutils && \
+    curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && \
+    echo 'deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main' >> /etc/apt/sources.list.d/kubernetes.list && \
+    apt -y update && \
+    apt install kubectl=1.23.15-00
+
+ADD sources.list /etc/apt/
+#iproute2 bash-completion netcat-traditional telnet
 EXPOSE 80
 #ENTRYPOINT ["nginx"]    #为了在workload配置启动命令，不使用ENTRYPOINT
 #CMD ["-g", "daemon off;"]
