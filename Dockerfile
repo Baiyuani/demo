@@ -21,13 +21,7 @@ COPY --from=build-source /usr/local/nginx /usr/local/nginx
 WORKDIR /usr/local/nginx/html/
 ADD src .
 
-RUN apt -y update && apt -y install curl
-
-RUN curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
-
-RUN echo 'deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main' >/etc/apt/sources.list.d/kubernetes.list
-
-RUN apt -y update && apt -y install curl vim iproute2 bash-completion netcat-traditional tcpdump telnet ca-certificates iputils-ping bind9-utils kubectl
+RUN apt -y update && apt -y install curl vim iproute2 bash-completion netcat-traditional tcpdump telnet ca-certificates iputils-ping bind9-utils
 ADD sources.list /etc/apt/
 #RUN apt -y install apt-transport-https software-properties-common
 #RUN curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
