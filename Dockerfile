@@ -21,6 +21,7 @@ COPY --from=build-source /usr/local/nginx /usr/local/nginx
 WORKDIR /usr/local/nginx/html/
 ADD src .
 
+RUN apt -y update && apt -y install curl
 
 RUN curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
 
