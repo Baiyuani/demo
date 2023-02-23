@@ -23,9 +23,9 @@ ADD src .
 
 
 RUN curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
-RUN cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
-EOF
+
+RUN echo 'deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main' >/etc/apt/sources.list.d/kubernetes.list
+
 RUN apt -y update && apt -y install curl vim iproute2 bash-completion netcat-traditional tcpdump telnet ca-certificates iputils-ping bind9-utils kubectl
 ADD sources.list /etc/apt/
 #RUN apt -y install apt-transport-https software-properties-common
