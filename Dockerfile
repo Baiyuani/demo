@@ -28,7 +28,10 @@ RUN apt update -y && apt -y install ca-certificates && update-ca-certificates &&
     curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && \
     echo 'deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main' >> /etc/apt/sources.list.d/kubernetes.list && \
     apt -y update && \
-    apt install kubectl=1.23.15-00
+    apt -y install kubectl=1.23.15-00 && \
+    apt-get clean all && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 ADD sources.list /etc/apt/
 RUN apt -y update
